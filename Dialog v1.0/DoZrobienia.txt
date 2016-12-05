@@ -1,0 +1,2 @@
+ - Ogarn¹æ GIT 
+ - ?? jak odwo³ywaæ siê do grafiki itd Setting ? xaml ? 
