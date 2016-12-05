@@ -1,0 +1,9 @@
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\bin\Debug\Database.dacpac
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\bin\Debug\Database.dll
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\bin\Debug\Database.pdb
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\obj\Debug\Model.xml
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\obj\Debug\refactor.xml
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\obj\Debug\postdeploy.sql
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\obj\Debug\predeploy.sql
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\obj\Debug\Database.dll
+C:\Users\xxx\documents\visual studio 2015\Projects\Game\Database\obj\Debug\Database.pdb

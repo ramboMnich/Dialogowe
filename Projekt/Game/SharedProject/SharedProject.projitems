@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>783c72d7-5100-43f3-959e-23a89482d843</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\BonusEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\FieldEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\TeamEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\UnitEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Board.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Field.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Unit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Images\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,5 @@
+05-12 
+Baza danych z modelem
+
+
+ ?? jak odwo³ywaæ siê do grafiki itd Setting ? xaml ? 
