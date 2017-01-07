@@ -1,5 +1,7 @@
-05-12 
-Baza danych z modelem
-
-
- ?? jak odwo³ywaæ siê do grafiki itd Setting ? xaml ? 
+Kamil
+* Pobieranie z Bazy i wrzucanie do DTO ***ZROBIONE***
+* zmieni nazwy na koncowke s 
+* Game ma miec jedna plansze tylko
+Bartek 
+* Label ustawia siê na polach, albo wraca na swoje poprzednie prawidlowe polozenie 
+* label z t³em obrazka
