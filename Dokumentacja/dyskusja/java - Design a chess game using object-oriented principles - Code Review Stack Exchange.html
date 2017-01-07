@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>java - Design a chess game using object-oriented principles - Code Review Stack Exchange</title>
+    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/codereview/img/favicon.ico?v=00b9e479193f">
+    <link rel="apple-touch-icon image_src" href="https://cdn.sstatic.net/Sites/codereview/img/apple-touch-icon.png?v=0a72875519a4)">
+    <link rel="search" type="application/opensearchdescription+xml" title="Code Review Stack Exchange" href="http://codereview.stackexchange.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@StackCodeReview">
+    <meta name="twitter:domain" content="codereview.stackexchange.com">
+    <meta property="og:type" content="website">
+
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="https://cdn.sstatic.net/Sites/codereview/img/apple-touch-icon@2.png?v=a4f1c838ba2c">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Design a chess game using object-oriented principles">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="I would like to know if my approach is correct and how could it could be improved? Also, is there a way to get rid of the relation between the Piece and the Board? At the moment, I am storing the ">
+    <meta property="og:url" content="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles">
+    <link rel="canonical" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles">
+
+    
+    
+    <script type="text/javascript" async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/ados"></script><script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/quant.js.pobrane"></script><script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/beacon.js.pobrane"></script><script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/analytics.js.pobrane"></script><script type="text/javascript" async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/ados.js.pobrane"></script><script src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/jquery.min.js.pobrane"></script>
+    <script src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/stub.en.js.pobrane"></script>
+    <link rel="stylesheet" type="text/css" href="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Design a chess game using object-oriented principles&#39;" href="http://codereview.stackexchange.com/feeds/question/71790">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:3,shownCommentCount:3,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:71790});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('196', '71790');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text', false); });
+
+            });
+        </script>
+
+                <script type="text/x-mathjax-config;executed=true">
+                    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+                                        tex2jax: { inlineMath: [ ["\\$", "\\$"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+                                        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+                                        messageStyle: "none"
+                });
+                </script>        
+            <script src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/MathJax.js.pobrane"></script>  
+
+    <script>
+        StackExchange.ready(function () {
+                        StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('196');
+                StackExchange.realtime.subscribeToTopBarNotifications('196');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","serverTime":1481553193,"routeName":"Questions/Show","site":{"name":"Code Review Stack Exchange","description":"Q&A for peer programmer code reviews","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"id":196,"enableInsertDocLinkDialog":false,"enableSocialMediaInSharePopup":true},"user":{"fkey":"946b89d77973dab5fb767fff6f3c00f9","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true},"realtime":{"newest":true,"active":true,"tagged":true,"staleDisconnectIntervalInHours":0,"workerIframeDomain":"https://cdn.sstatic.net"},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75}}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true},"comments":{},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"analytics":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"markdown":{"asteriskIntraWordEmphasis":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"06d67193cff4","js/moderator.en.js":"1bdc231dc7f5","js/full-anon.en.js":"49075288bf9b","js/full.en.js":"53dd47f49d45","js/wmd.en.js":"1966ce920971","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"3c7426a1302d","js/help.en.js":"12aebc9f0272","js/tageditor.en.js":"820420283947","js/tageditornew.en.js":"8b70577d4cf5","js/inline-tag-editing.en.js":"2ddfa79492e7","js/revisions.en.js":"f4d14ad9db6c","js/review.en.js":"45ded0b70a10","js/tagsuggestions.en.js":"d1ff9b84abe5","js/post-validation.en.js":"38ab6ae8a4a3","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"e449ebf70756","js/keyboard-shortcuts.en.js":"4d22dd1bfd37","js/external-editor.en.js":"5441bf1fb1b5","js/mathjax-editing.en.js":"18ec7ecb83ba","js/external-editor.en.js":"5441bf1fb1b5","js/snippet-javascript.en.js":"07c320a2d73c","js/snippet-javascript-codemirror.en.js":"aa028aaeae06"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/full-anon.en.js.pobrane"></script><script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/snippet-javascript.en.js.pobrane"></script><script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/post-validation.en.js.pobrane"></script><script async="" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/prettify-full.en.js.pobrane"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><script type="text/javascript" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/adFeedback.js.pobrane"></script><link rel="stylesheet" href="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/adFeedback.css"><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Main-bold; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Main-italic; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Math-italic; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Caligraphic; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf?V=2.7.0') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="question-page new-topbar"><div id="MathJax_Message" style="display: none;"></div><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div>
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    
+
+
+
+    <div id="notify-container"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+    <div class="topbar-dialog siteSwitcher-dialog dno">
+        <div class="header">
+            <h3><a href="http://codereview.stackexchange.com/">current community</a>
+            </h3>
+        </div>
+        <div class="modal-content current-site-container">
+            <ul class="current-site">
+                    <li>
+                            <div class="related-links">
+                    <a href="http://chat.stackexchange.com/?tab=site&amp;host=codereview.stackexchange.com" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://codereview.stackexchange.com/" class="current-site-link site-link js-gps-track" data-id="196" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-codereview" title="Code Review"></div>
+        Code Review
+    </a>
+
+                    </li>
+                    <li class="related-site">
+                            <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                        
+
+
+
+    <a href="http://meta.codereview.stackexchange.com/" class="site-link js-gps-track" data-id="198" data-gps-track="
+            site.switch({ target_site:198, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-codereviewmeta" title="Code Review Meta"></div>
+        Code Review Meta
+    </a>
+
+                    </li>
+            </ul>
+        </div>
+
+        <div class="header" id="your-communities-header">
+            <h3>
+your communities            </h3>
+
+        </div>
+        <div class="modal-content" id="your-communities-section">
+
+                <div class="call-to-login">
+<a href="https://codereview.stackexchange.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fcodereview.stackexchange.com%2fquestions%2f71790%2fdesign-a-chess-game-using-object-oriented-principles" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://codereview.stackexchange.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fcodereview.stackexchange.com%2fquestions%2f71790%2fdesign-a-chess-game-using-object-oriented-principles" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+                </div>
+        </div>
+
+        <div class="header">
+            <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a>
+            </h3>
+            <a href="http://stackoverflow.blog/" class="fr">company blog</a>
+        </div>
+        <div class="modal-content">
+                <div class="child-content"></div>
+        </div>        
+    </div>
+        </div>
+
+        <div class="network-items">
+                <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 162 Stack Exchange sites">
+                    <span class="hidden-text">Stack Exchange</span>
+                </a>
+
+    <a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display:none"></span>
+    </a>
+    <a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" class="topbar-icon icon-achievements yes-hover js-achievements-button" data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display:none">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://codereview.stackexchange.com/users/signup?ssrc=head&amp;returnurl=http%3a%2f%2fcodereview.stackexchange.com%2fquestions%2f71790%2fdesign-a-chess-game-using-object-oriented-principles" class="login-link">sign up</a>
+                                <a href="https://codereview.stackexchange.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fcodereview.stackexchange.com%2fquestions%2f71790%2fdesign-a-chess-game-using-object-oriented-principles" class="login-link">log in</a>
+
+                            <a href="http://codereview.stackexchange.com/tour">tour</a>
+        <a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" class="icon-help js-help-button" title="Help Center and other resources">
+            help
+            <span class="triangle"></span>
+        </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://codereview.stackexchange.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://codereview.stackexchange.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="http://meta.codereview.stackexchange.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                                About Us
+                                <span class="item-summary">
+                                    Learn more about Stack Overflow the company
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.stackoverflowbusiness.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                                Business
+                                <span class="item-summary">
+                                    Learn more about hiring developers or posting ads with us
+                                </span>
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://codereview.stackexchange.com/search" method="get" autocomplete="off">
+                        <input name="q" type="text" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://codereview.stackexchange.com/">
+                    Code Review
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                            <li class="youarehere">
+        <a id="nav-questions" href="http://codereview.stackexchange.com/questions" class="js-gps-track" data-gps-track="top_nav.click({is_current:true, location:3, destination:1})">
+        Questions
+        </a>
+    </li>
+
+                                                    <li>
+        <a id="nav-tags" href="http://codereview.stackexchange.com/tags" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:2})">
+        Tags
+        </a>
+    </li>
+
+                            <li>
+        <a id="nav-users" href="http://codereview.stackexchange.com/users" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:3})">
+        Users
+        </a>
+    </li>
+
+                            <li>
+        <a id="nav-badges" href="http://codereview.stackexchange.com/help/badges" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:4})">
+        Badges
+        </a>
+    </li>
+
+    <li>
+        <a id="nav-unanswered" href="http://codereview.stackexchange.com/unanswered" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:5})">
+        Unanswered
+        </a>
+    </li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://codereview.stackexchange.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="https://cdn.sstatic.net/Sites/codereview/img/apple-touch-icon.png?v=0a72875519a4">
+
+
+    <div id="herobox">
+        <div id="hero-content">
+                <div id="close"><a title="click to minimize">_</a></div>
+            <div id="blurb">
+                Code Review Stack Exchange is a question and answer site for peer programmer code reviews. Join them; it only takes a minute:
+                <br>
+                <br>
+                <a href="http://codereview.stackexchange.com/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fcodereview.stackexchange.com%2fquestions%2f71790%2fdesign-a-chess-game-using-object-oriented-principles" id="tell-me-more" class="button">Sign up</a>
+            </div>
+            <div id="desc">
+                <b>Here's how it works:</b>
+                <ol id="hiw">
+                    <li id="q">Anybody can ask a question
+                    </li>
+                    <li id="an">Anybody can answer
+                    </li>
+                    <li id="b">The best answers are voted up and rise to the top
+                    </li>
+                </ol>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+<script>
+    StackExchange.ready(function () {
+
+        var location = 0;
+        if ($("body").hasClass("questions-page")) {
+            location = 1;;
+        } else if ($("body").hasClass("question-page")) {
+            location = 1;;
+        } else if ($("body").hasClass("faq-page")) {
+            location = 5;;
+        } else if ($("body").hasClass("home-page")) {
+            location = 3;;
+        }
+
+        $('#tell-me-more').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: 'cta', location: location }, true);
+            });
+        });
+        $('#herobox #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "minimize", location: location }, true);
+            });
+            $.cookie("hero", "mini", { path: "/", expires: 365 });
+            $.ajax({
+                url: "/hero-mini",
+                success: function (data) {
+                    $("#herobox").fadeOut("fast", function () {
+                        $("#herobox").replaceWith(data);
+                        $("#herobox-mini").fadeIn("fast");
+                    });
+                }
+            });
+            return false;
+        });
+    });
+
+</script>			<div id="question-header">
+                <h1 itemprop="name"><a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles" class="question-hyperlink">Design a chess game using object-oriented principles</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="71790" id="question">
+
+    <script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,0,"adzerk45194130",4).enableDynamicSiteSelection().setZone(29); });
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk45194130"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input type="radio" value="12" name="downvoteReason">Uninteresting</label></li><li><label><input type="radio" value="13" name="downvoteReason">Misleading</label></li><li><label><input type="radio" value="14" name="downvoteReason">Offensive</label></li><li><label><input type="radio" value="15" name="downvoteReason">Repetitive</label></li><li><label><input type="radio" value="16" name="downvoteReason">Other</label></li></ul><a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img height="0px" width="0px" border="0" style="position:absolute;" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/i.gif"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="71790">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">31</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#">favorite</a>
+        <div class="favoritecount"><b>14</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>I would like to know if my approach is correct and how could it could be improved? Also, is there a way to get rid of the relation between the <code>Piece</code> and the <code>Board</code>? At the moment, I am storing the position of the piece both in the piece and on the board. Is there some way to change that?</p>
+
+<p>I have considered a <code>Game</code> to contain an instance of the <code>Board</code> and the two <code>Players</code> (one black, one white). The pieces contain a connection to the Board, because in order to determine if they are valid, we need to know the relationship to other pieces.</p>
+
+<p>Could I use design patterns for this? Should I use interfaces instead of the super class?</p>
+
+<h3>Game.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Game</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Board</span><span class="pln"> board </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Board</span><span class="pun">();</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Player</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Player</span><span class="pln"> black</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Game</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setColorWhite</span><span class="pun">(</span><span class="typ">Player</span><span class="pln"> player</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">white </span><span class="pun">=</span><span class="pln"> player</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setColorBlack</span><span class="pun">(</span><span class="typ">Player</span><span class="pln"> player</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">black </span><span class="pun">=</span><span class="pln"> player</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Board</span><span class="pln"> getBoard</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> board</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setBoard</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">board </span><span class="pun">=</span><span class="pln"> board</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Player</span><span class="pln"> getWhite</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setWhite</span><span class="pun">(</span><span class="typ">Player</span><span class="pln"> white</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">white </span><span class="pun">=</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Player</span><span class="pln"> getBlack</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> black</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setBlack</span><span class="pun">(</span><span class="typ">Player</span><span class="pln"> black</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">black </span><span class="pun">=</span><span class="pln"> black</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> initializeBoardGivenPlayers</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">black </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">null</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">white </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">board </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Board</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">&lt;</span><span class="pln">black</span><span class="pun">.</span><span class="pln">getPieces</span><span class="pun">().</span><span class="pln">size</span><span class="pun">();</span><span class="pln"> i</span><span class="pun">++){</span><span class="pln">
+            board</span><span class="pun">.</span><span class="pln">getSpot</span><span class="pun">(</span><span class="pln">black</span><span class="pun">.</span><span class="pln">getPieces</span><span class="pun">().</span><span class="pln">get</span><span class="pun">(</span><span class="pln">i</span><span class="pun">).</span><span class="pln">getX</span><span class="pun">(),</span><span class="pln"> black</span><span class="pun">.</span><span class="pln">getPieces</span><span class="pun">().</span><span class="pln">get</span><span class="pun">(</span><span class="pln">i</span><span class="pun">).</span><span class="pln">getY</span><span class="pun">()).</span><span class="pln">occupySpot</span><span class="pun">(</span><span class="pln">black</span><span class="pun">.</span><span class="pln">getPieces</span><span class="pun">().</span><span class="pln">get</span><span class="pun">(</span><span class="pln">i</span><span class="pun">));</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>Player.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Player</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> PAWNS </span><span class="pun">=</span><span class="pln"> </span><span class="lit">8</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> BISHOPS </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> ROOKS </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Piece</span><span class="pun">&gt;</span><span class="pln"> pieces </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;&gt;();</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Player</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> white</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">white </span><span class="pun">=</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Piece</span><span class="pun">&gt;</span><span class="pln"> getPieces</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> pieces</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> initializePieces</span><span class="pun">(){</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">white </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">){</span><span class="pln">
+            </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">&lt;</span><span class="pln">PAWNS</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++){</span><span class="pln"> </span><span class="com">// draw pawns</span><span class="pln">
+                pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Pawn</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln">i</span><span class="pun">,</span><span class="lit">2</span><span class="pun">));</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Rook</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Rook</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Bishop</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Bishop</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">5</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Knight</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Knight</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">6</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Queen</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">King</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">4</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="kwd">else</span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">&lt;</span><span class="pln">PAWNS</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++){</span><span class="pln"> </span><span class="com">// draw pawns</span><span class="pln">
+                pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Pawn</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln">i</span><span class="pun">,</span><span class="lit">6</span><span class="pun">));</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Rook</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Rook</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Bishop</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Bishop</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">5</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Knight</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Knight</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">6</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Queen</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+            pieces</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">King</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="lit">4</span><span class="pun">,</span><span class="pln"> </span><span class="lit">7</span><span class="pun">));</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<h3>Board.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Board</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Spot</span><span class="pun">[][]</span><span class="pln"> spots </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Spot</span><span class="pun">[</span><span class="lit">8</span><span class="pun">][</span><span class="lit">8</span><span class="pun">];</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Board</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">&lt;</span><span class="pln">spots</span><span class="pun">.</span><span class="pln">length</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++){</span><span class="pln">
+            </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> j</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln"> j</span><span class="pun">&lt;</span><span class="pln">spots</span><span class="pun">.</span><span class="pln">length</span><span class="pun">;</span><span class="pln"> j</span><span class="pun">++){</span><span class="pln">
+                </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">spots</span><span class="pun">[</span><span class="pln">i</span><span class="pun">][</span><span class="pln">j</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Spot</span><span class="pun">(</span><span class="pln">i</span><span class="pun">,</span><span class="pln"> j</span><span class="pun">);</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Spot</span><span class="pln"> getSpot</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> spots</span><span class="pun">[</span><span class="pln">x</span><span class="pun">][</span><span class="pln">y</span><span class="pun">];</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>Spot.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Spot</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Piece</span><span class="pln"> piece</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Spot</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> x</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> y</span><span class="pun">;</span><span class="pln">
+        piece </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> occupySpot</span><span class="pun">(</span><span class="typ">Piece</span><span class="pln"> piece</span><span class="pun">){</span><span class="pln">
+        </span><span class="com">//if piece already here, delete it, i. e. set it dead</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">piece </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">piece</span><span class="pun">.</span><span class="pln">setAvailable</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">//place piece here</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">piece </span><span class="pun">=</span><span class="pln"> piece</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isOccupied</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">piece </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Piece</span><span class="pln"> releaseSpot</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Piece</span><span class="pln"> releasedPiece </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">piece</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">piece </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> releasedPiece</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>Piece.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Piece</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Piece</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">available </span><span class="pun">=</span><span class="pln"> available</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> x</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> y</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isAvailable</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> available</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setAvailable</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">available </span><span class="pun">=</span><span class="pln"> available</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> getX</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> x</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setX</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> x</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> getY</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> y</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setY</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> y</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toY</span><span class="pun">){</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">==</span><span class="pln"> fromX </span><span class="pun">&amp;&amp;</span><span class="pln"> toY </span><span class="pun">==</span><span class="pln"> fromY</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln"> </span><span class="com">//cannot move nothing</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> toX </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">7</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> fromX </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> fromX </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">7</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> toY </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> toY </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">7</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> fromY </span><span class="pun">&lt;</span><span class="lit">0</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> fromY </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">7</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>King.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">King</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Piece</span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">King</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">(</span><span class="pln">available</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> y</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">// TODO Auto-generated constructor stub</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">isValid</span><span class="pun">(</span><span class="pln">board</span><span class="pun">,</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="typ">Math</span><span class="pun">.</span><span class="pln">sqrt</span><span class="pun">(</span><span class="typ">Math</span><span class="pun">.</span><span class="pln">pow</span><span class="pun">(</span><span class="typ">Math</span><span class="pun">.</span><span class="pln">abs</span><span class="pun">((</span><span class="pln">toX </span><span class="pun">-</span><span class="pln"> fromX</span><span class="pun">)),</span><span class="lit">2</span><span class="pun">))</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">Math</span><span class="pun">.</span><span class="pln">pow</span><span class="pun">(</span><span class="typ">Math</span><span class="pun">.</span><span class="pln">abs</span><span class="pun">((</span><span class="pln">toY </span><span class="pun">-</span><span class="pln"> fromY</span><span class="pun">)),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="pun">!=</span><span class="pln"> </span><span class="typ">Math</span><span class="pun">.</span><span class="pln">sqrt</span><span class="pun">(</span><span class="lit">2</span><span class="pun">)){</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>Knight.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Knight</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Piece</span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Knight</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">(</span><span class="pln">available</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> y</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">isValid</span><span class="pun">(</span><span class="pln">board</span><span class="pun">,</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">!=</span><span class="pln"> fromX </span><span class="pun">-</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> toX </span><span class="pun">!=</span><span class="pln"> fromX </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> toX </span><span class="pun">!=</span><span class="pln"> fromX </span><span class="pun">+</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> toX </span><span class="pun">!=</span><span class="pln"> fromX </span><span class="pun">-</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toY </span><span class="pun">!=</span><span class="pln"> fromY </span><span class="pun">-</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> toY </span><span class="pun">!=</span><span class="pln"> fromY </span><span class="pun">+</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> toY </span><span class="pun">!=</span><span class="pln"> fromY </span><span class="pun">-</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> toY </span><span class="pun">!=</span><span class="pln"> fromY </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>Bishop.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Bishop</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Piece</span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Bishop</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">(</span><span class="pln">available</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> y</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">// TODO Auto-generated constructor stub</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">isValid</span><span class="pun">(</span><span class="pln">board</span><span class="pun">,</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">-</span><span class="pln"> fromX </span><span class="pun">==</span><span class="pln"> toY </span><span class="pun">-</span><span class="pln"> fromY</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+
+<h3>Rook.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Rook</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Piece</span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Rook</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">(</span><span class="pln">available</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> y</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">// TODO Auto-generated constructor stub</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">isValid</span><span class="pun">(</span><span class="pln">board</span><span class="pun">,</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">==</span><span class="pln"> fromX</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toY </span><span class="pun">==</span><span class="pln"> fromY</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<h3>Queen.java</h3>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Queen</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Piece</span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Queen</span><span class="pun">(</span><span class="kwd">boolean</span><span class="pln"> available</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">(</span><span class="pln">available</span><span class="pun">,</span><span class="pln"> x</span><span class="pun">,</span><span class="pln"> y</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(</span><span class="typ">Board</span><span class="pln"> board</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">isValid</span><span class="pun">(</span><span class="pln">board</span><span class="pun">,</span><span class="pln"> fromX</span><span class="pun">,</span><span class="pln"> fromY</span><span class="pun">,</span><span class="pln"> toX</span><span class="pun">,</span><span class="pln"> toY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+        </span><span class="com">//diagonal</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">-</span><span class="pln"> fromX </span><span class="pun">==</span><span class="pln"> toY </span><span class="pun">-</span><span class="pln"> fromY</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toX </span><span class="pun">==</span><span class="pln"> fromX</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">toY </span><span class="pun">==</span><span class="pln"> fromY</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+    </div>
+    <div class="post-taglist">
+        <a href="http://codereview.stackexchange.com/questions/tagged/java" class="post-tag js-gps-track" title="show questions tagged &#39;java&#39;" rel="tag">java</a> <a href="http://codereview.stackexchange.com/questions/tagged/oop" class="post-tag js-gps-track" title="show questions tagged &#39;oop&#39;" rel="tag">oop</a> <a href="http://codereview.stackexchange.com/questions/tagged/design-patterns" class="post-tag js-gps-track" title="show questions tagged &#39;design-patterns&#39;" rel="tag">design-patterns</a> <a href="http://codereview.stackexchange.com/questions/tagged/game" class="post-tag js-gps-track" title="show questions tagged &#39;game&#39;" rel="tag">game</a> <a href="http://codereview.stackexchange.com/questions/tagged/chess" class="post-tag js-gps-track" title="show questions tagged &#39;chess&#39;" rel="tag">chess</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://codereview.stackexchange.com/q/71790" title="short permalink to this question" class="short-link" id="link-post-71790">share</a><span class="lsep">|</span><a href="http://codereview.stackexchange.com/posts/71790/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://codereview.stackexchange.com/posts/71790/revisions" title="show all edits to this post">edited <span title="2014-12-05 20:32:11Z" class="relativetime">Dec 5 '14 at 20:32</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/9357/200-success"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/1f9W9.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/9357/200-success">200_success</a><span class="mod-flair" title="moderator">♦</span>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 106,083" dir="ltr">106k</span><span title="12 gold badges"><span class="badge1"></span><span class="badgecount">12</span></span><span title="123 silver badges"><span class="badge2"></span><span class="badgecount">123</span></span><span title="350 bronze badges"><span class="badge3"></span><span class="badgecount">350</span></span>
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2014-12-05 18:05:30Z" class="relativetime">Dec 5 '14 at 18:05</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/59535/summercode"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/931486d59469f85e28222822dbc03976" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/59535/summercode">SummerCode</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">258</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                    
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-71790" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-211237" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">where is Pawn.java file ? I did not found that.</span>
+		            –&nbsp;<span class="comment-user">user92331</span>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#comment211237_71790"><span title="2015-12-15 12:36:54Z" class="relativetime-clean">Dec 15 '15 at 12:36</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-211238" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Nitin Kumar i have forgotten indeed to write it down apparently, but i no longer have the project due to some hardware issues...</span>
+                    –&nbsp;<a href="http://codereview.stackexchange.com/users/59535/summercode" title="258 reputation" class="comment-user owner">SummerCode</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#comment211238_71790"><span title="2015-12-15 13:15:41Z" class="relativetime-clean">Dec 15 '15 at 13:15</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-260030" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">bishop moves only in diagonal shape if it is in white place means its only moves in white diagonally otherwise moves in black</span>
+                    –&nbsp;<a href="http://codereview.stackexchange.com/users/115324/ilaya" title="1 reputation" class="comment-user">ilaya</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#comment260030_71790"><span title="2016-08-18 09:56:27Z" class="relativetime-clean">Aug 18 at 9:56</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-71790" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" onclick=""></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								5 Answers
+                                <span style="display:none;" itemprop="answerCount">5</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="71797"></a>
+<div id="answer-71797" class="answer accepted-answer" data-answerid="71797" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="71797">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">16</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Without offering a deep code review (as I don't have a lot of specific Java knowledge), let's look at what a full "move" entails in chess:</p>
+
+<ul>
+<li>Player chooses piece to move.</li>
+<li>Piece makes legal move according to its own move rules.</li>
+<li>In addition to purely move-based rules, there's also capture logic, so a bishop cannot move from a1-h8 if there's a piece sitting on c3.</li>
+<li>If the player was previous under check and the move does not remove the check, it must be undone.</li>
+<li>If the move exposes check, it must be undone / disallowed.</li>
+<li>If player captures a piece, remove the piece (including en passant!)</li>
+<li>If the piece is a pawn reaching the back rank, promote it.</li>
+<li>If the move is a castling, set the new position of the rook accordingly. But a king and rook can only castle if they haven't moved, so you need to keep track of that. And if the king moves through a check to castle, that's disallowed, too.</li>
+<li>If the move results in a stalemate or checkmate, the game is over.</li>
+</ul>
+
+<p>There may be more even (?). This is a complicated step, more than just counting and subsequently occupying spaces.</p>
+
+<p>So my general intuition would be to just call:</p>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="typ">Game</span><span class="pun">.</span><span class="pln">move</span><span class="pun">(</span><span class="pln">currentSpot</span><span class="pun">,</span><span class="pln"> </span><span class="typ">NewSpot</span><span class="pun">);</span></code></pre>
+
+<p>And the move method would contain all the code to validate the steps above:</p>
+
+<ul>
+<li>Check <code>Piece.isValidMove(currentSpot, newSpot);</code> - probably need castling logic here since king moves more than 1 space and rook jumps the king)</li>
+<li>Check <code>Player.isChecked()</code> (which is just sugar for <code>Player.Pieces["King"].CanBeCaptured()</code> - more fun logic here!)</li>
+<li>Check if <code>newSpot</code> contains a piece and if so, <code>newSpot.Piece.Remove()</code>;</li>
+<li>Build some logic to call <code>Piece.CheckEnPassant()</code> (Piece is pawn, first move, 2 steps, past an enemy pawn who moved into capturing position on previous move - have fun with that!)</li>
+<li><code>Piece.CheckPromote()</code> (Piece is pawn, move ends on opposing player's back rank)</li>
+<li>Check if <code>Game.isOver()</code>, which checks <code>Game.isStaleMate()</code> and <code>Game.isCheckMate()</code>.</li>
+</ul>
+
+<p>Your Board class is highly anemic, you're only using it in your code as a proxy object for the array of spots. You might as well just create Board as an array of Spots in Game. In either case, you can already remove it from all your piece logic since all your logic is entirely predicated on the Xs and Ys you're passing in.</p>
+
+<p><strong>UPDATE</strong></p>
+
+<p>I would remove all your position properties from the piece. You're only using it as a proxy to figure out what spot the piece occupies during initializiation. Instead, remove <code>Player.initializePieces()</code> and just initialize the Board with the pieces in the right spot (Board.Spot.Piece = King, etc.) and then let players choose a color.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://codereview.stackexchange.com/a/71797" title="short permalink to this answer" class="short-link" id="link-post-71797">share</a><span class="lsep">|</span><a href="http://codereview.stackexchange.com/posts/71797/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://codereview.stackexchange.com/posts/71797/revisions" title="show all edits to this post">edited <span title="2014-12-05 19:49:08Z" class="relativetime">Dec 5 '14 at 19:49</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/42632/phrancis"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/7DFY3.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/42632/phrancis">Phrancis</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 12,823" dir="ltr">12.8k</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="33 silver badges"><span class="badge2"></span><span class="badgecount">33</span></span><span title="117 bronze badges"><span class="badge3"></span><span class="badgecount">117</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-12-05 19:01:38Z" class="relativetime">Dec 5 '14 at 19:01</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/35671/kyle-hale"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/YfaPC.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/35671/kyle-hale">Kyle Hale</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">598</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="10 bronze badges"><span class="badge3"></span><span class="badgecount">10</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-71797" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-131312" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Further move: Taking a pawn en passent: If a pawn moves two positions in its first move, it can be taken by an opposing pawn in the very next move as if it had moved one position only. Offering a draw or giving up: The player whose move it is can offer a draw, and the other player can accept or reject it. And the player whose move it is can give up the game. After 50 moves with no piece taken or pawn moved the player can demand a draw. Same if the identical position is entered for the third time.</span>
+                    –&nbsp;<a href="http://codereview.stackexchange.com/users/37194/gnasher729" title="1,302 reputation" class="comment-user">gnasher729</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#comment131312_71797"><span title="2014-12-05 22:22:11Z" class="relativetime-clean">Dec 5 '14 at 22:22</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-277332" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Kyle Hale I believe to validate <code>isValidMove</code> should not be responsibility of piece but it should be the responsibility of validator. Is n't it ?</span>
+                    –&nbsp;<a href="http://codereview.stackexchange.com/users/57001/m-sach" title="153 reputation" class="comment-user">M Sach</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#comment277332_71797"><span title="2016-11-20 08:17:50Z" class="relativetime-clean">Nov 20 at 8:17</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-277592" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@MSach Yeah, you're probably right, I would move that to the Game class and just add the Source and Destination squares as parameters.</span>
+                    –&nbsp;<a href="http://codereview.stackexchange.com/users/35671/kyle-hale" title="598 reputation" class="comment-user">Kyle Hale</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#comment277592_71797"><span title="2016-11-21 16:39:54Z" class="relativetime-clean">Nov 21 at 16:39</span></a></span>
+                        <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-71797" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,0,"adzerk1844291561",4).enableDynamicSiteSelection().setZone(30); });
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1844291561"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input type="radio" value="12" name="downvoteReason">Uninteresting</label></li><li><label><input type="radio" value="13" name="downvoteReason">Misleading</label></li><li><label><input type="radio" value="14" name="downvoteReason">Offensive</label></li><li><label><input type="radio" value="15" name="downvoteReason">Repetitive</label></li><li><label><input type="radio" value="16" name="downvoteReason">Other</label></li></ul><a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img height="0px" width="0px" border="0" style="position:absolute;" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/i(1).gif"></div>
+  
+<a name="71796"></a>
+<div id="answer-71796" class="answer" data-answerid="71796" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="71796">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">13</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><strong>Some quick shots</strong>  </p>
+
+<ul>
+<li>a <code>if</code> condition written like <code>if (booleanVariable==true)</code> can be simplified to <code>if (booleanVariable)</code>  </li>
+<li>you shouldn't have public variables like <code>public boolean white;</code>  </li>
+<li>no constructor of <code>Game</code>, <code>Board</code>, <code>Player</code> and <code>Piece</code> should call <code>super()</code> because they are obviously not inheriting / extending any class.  </li>
+</ul>
+
+<p><strong>Some design quickshots</strong>  </p>
+
+<ul>
+<li>a chessgame needs a Board, 2 Players and 32 pieces. </li>
+<li>the pieces are part of the Board</li>
+<li>the Player moves the piece by rules  </li>
+<li>the rules are bound to the type of piece and the pieces position on the board  </li>
+<li>these rules needs to be evaluated by some object, either the <code>Game</code> or a <code>RuleEvaluator</code>.</li>
+</ul>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://codereview.stackexchange.com/a/71796" title="short permalink to this answer" class="short-link" id="link-post-71796">share</a><span class="lsep">|</span><a href="http://codereview.stackexchange.com/posts/71796/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://codereview.stackexchange.com/posts/71796/revisions" title="show all edits to this post">edited <span title="2014-12-05 19:03:24Z" class="relativetime">Dec 5 '14 at 19:03</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2014-12-05 18:50:06Z" class="relativetime">Dec 5 '14 at 18:50</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/29371/heslacher"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/hS5JJ.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/29371/heslacher">Heslacher</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 35,778" dir="ltr">35.8k</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="43 silver badges"><span class="badge2"></span><span class="badgecount">43</span></span><span title="124 bronze badges"><span class="badge3"></span><span class="badgecount">124</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-71796" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-71796" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="87327"></a>
+<div id="answer-87327" class="answer" data-answerid="87327" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="87327">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">13</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>My comments are with respect to design of the game.
+I see responsibilities of entities are mixed up in many places</p>
+
+<ul>
+<li>Player should not initialize pieces. We can move the responsibility to board. Board and pieces doesn't need to know about players.</li>
+<li>Pieces should not handle move. Pieces can provide list of possible moves to reach the destination path but board should choose a valid path.</li>
+<li>Board should have check for "Check Mate" condition.</li>
+<li>Game should track the players move history and piece color selection.</li>
+<li>Player class should have only player details.</li>
+</ul>
+
+<p>A rough class diagram is attached below
+<img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/IzHR9.png" alt="enter image description here"></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://codereview.stackexchange.com/a/87327" title="short permalink to this answer" class="short-link" id="link-post-87327">share</a><span class="lsep">|</span><a href="http://codereview.stackexchange.com/posts/87327/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://codereview.stackexchange.com/posts/87327/revisions" title="show all edits to this post">edited <span title="2015-04-19 03:23:55Z" class="relativetime">Apr 19 '15 at 3:23</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/34073/hosch250"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/2Zo0c.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/34073/hosch250">Hosch250</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 14,906" dir="ltr">14.9k</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="49 silver badges"><span class="badge2"></span><span class="badgecount">49</span></span><span title="131 bronze badges"><span class="badge3"></span><span class="badgecount">131</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-04-19 03:04:14Z" class="relativetime">Apr 19 '15 at 3:04</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/70711/ramanathan-ganesan"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/fb9310bb40c6bbc266d4b1c8923cb627" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/70711/ramanathan-ganesan">Ramanathan Ganesan</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">131</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-87327" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-87327" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="71812"></a>
+<div id="answer-71812" class="answer" data-answerid="71812" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="71812">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">8</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Instead of using a boolean to flag if something is something (and thus implying that it isn't the other thing), consider an <code>enum</code>; in this case that doesn't buy you anything in terms of flexibility (since it's not as if there will ever be, say, red or purple or whatnot) but it will make your code much more clear.</p>
+
+<p>On the game, instead of setting black and white separately, you should have a single <code>setPlayers(Player black, Player white)</code>, or better yet, have the board be a factory that provides the black and white <code>Player</code>s itself - if there's even a reason to have a Player object in the first place.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://codereview.stackexchange.com/a/71812" title="short permalink to this answer" class="short-link" id="link-post-71812">share</a><span class="lsep">|</span><a href="http://codereview.stackexchange.com/posts/71812/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-12-05 21:51:12Z" class="relativetime">Dec 5 '14 at 21:51</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/10176/fluffy"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/55ee19d0dd775596dbca5ba1cd92d6ad" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/10176/fluffy">fluffy</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">410</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-71812" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-71812" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="71831"></a>
+<div id="answer-71831" class="answer" data-answerid="71831" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="71831">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">3</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Couple of additions to everyone else:</p>
+
+<ul>
+<li>both <code>Player</code> and <code>Board</code> need to know where pieces are. Can't think offhand the best way to decompose this, but consider how they'll talk to each other with minimal duplication:</li>
+<li><p><code>*.isValid()</code> only check from- and to-coords, they currently don't check if there are intervening friendly or enemy pieces, or indeed if the to-spot is occupied. I think you should do that in one function at the Board level, it will get very ugly if you do that for each piece. You might need a helper function (iterator?) for each piece to generate <code>interveningSpots(fromX,fromY,toX,toY,pieceType)</code> so <code>Board.validMove()</code> can test if they're occupied.</p></li>
+<li><p>the name <code>Piece.isValid()</code> is confusing, it could mean either <code>validMove()</code> or <code>validPosition()</code>. Personally I'd rename it <code>validMove()</code>. (We'll also need a <code>validPosition()</code> if you ever implement promotion, but again, that would be implemented at Board level not Piece or Player)</p></li>
+<li><p><code>King.isValid()</code> seems to currently always return false - bug?</p></li>
+<li><p><code>Queen/Bishop/Rook.isValid()</code> currently allow null zero moves <code>(toX==fromX &amp;&amp; toY==fromY)</code>. This might sound like nitpicking, but a) it might wrongly allow you to evade mate by "doing nothing" b) it is likely to mess up recursion in any AI you or someone might want to add.</p></li>
+<li><p>a tip for more performant and more compact code for <code>King.isValid()</code>: you don't need to take the sqrt; just directly test that dist2 = (dx^2 + dy^2) is either 1 or 2. And you don't need abs(dx) since the square of a negative number is positive. So:</p>
+
+<pre class="lang-java prettyprint prettyprinted"><code><span class="lit">@Override</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> isValid</span><span class="pun">(...)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pun">(!</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">isValid</span><span class="pun">(...))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">int</span><span class="pln"> dist2 </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Math</span><span class="pun">.</span><span class="pln">pow</span><span class="pun">((</span><span class="pln">toX </span><span class="pun">-</span><span class="pln"> fromX</span><span class="pun">),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">Math</span><span class="pun">.</span><span class="pln">pow</span><span class="pun">((</span><span class="pln">toY </span><span class="pun">-</span><span class="pln"> fromY</span><span class="pun">),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">(</span><span class="pln">dist2 </span><span class="pun">==</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> dist2 </span><span class="pun">==</span><span class="pln"> </span><span class="lit">2</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre></li>
+</ul>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://codereview.stackexchange.com/a/71831" title="short permalink to this answer" class="short-link" id="link-post-71831">share</a><span class="lsep">|</span><a href="http://codereview.stackexchange.com/posts/71831/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://codereview.stackexchange.com/posts/71831/revisions" title="show all edits to this post">edited <span title="2015-02-09 10:10:13Z" class="relativetime">Feb 9 '15 at 10:10</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-12-06 02:22:44Z" class="relativetime">Dec 6 '14 at 2:22</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://codereview.stackexchange.com/users/10196/smci"><div class="gravatar-wrapper-32"><img src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/6cc1d82c11563b440c57280ad587ee47" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://codereview.stackexchange.com/users/10196/smci">smci</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">133</span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-71831" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-71831" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+				    <div class="question-status">
+        <h2>                    <b>protected</b> by <a href="http://codereview.stackexchange.com/users/22222/jamal">Jamal</a><span class="mod-flair" title="moderator">♦</span> <span dir="ltr"><span title="2016-08-18 22:21:39Z" class="relativetime">Aug 18 at 22:21</span></span>
+</h2>
+        <p>
+Thank you for your interest in this question. 
+Because it has attracted low-quality or spam answers that had to be removed, posting an answer now requires 10 <a href="http://codereview.stackexchange.com/help/whats-reputation">reputation</a> on this site (the <a href="http://codereview.stackexchange.com/help/privileges/new-user">association bonus does not count</a>).
+<br><br>
+Would you like to answer one of these <a href="http://codereview.stackexchange.com/unanswered?fromProtectedNotice=true">unanswered questions</a> instead?
+</p>
+    </div>
+
+
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://codereview.stackexchange.com/questions/tagged/java" class="post-tag" title="show questions tagged &#39;java&#39;" rel="tag">java</a> <a href="http://codereview.stackexchange.com/questions/tagged/oop" class="post-tag" title="show questions tagged &#39;oop&#39;" rel="tag">oop</a> <a href="http://codereview.stackexchange.com/questions/tagged/design-patterns" class="post-tag" title="show questions tagged &#39;design-patterns&#39;" rel="tag">design-patterns</a> <a href="http://codereview.stackexchange.com/questions/tagged/game" class="post-tag" title="show questions tagged &#39;game&#39;" rel="tag">game</a> <a href="http://codereview.stackexchange.com/questions/tagged/chess" class="post-tag" title="show questions tagged &#39;chess&#39;" rel="tag">chess</a>  or <a href="http://codereview.stackexchange.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2014-12-05 18:05:30Z"><b>2 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>65407 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles?lastactivity" class="lastactivity-link" title="2016-08-18 09:56:27Z">3 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,0,"adzerk164654003",[5,17]).enableDynamicSiteSelection().setZone(56016); });
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk164654003"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input type="radio" value="12" name="downvoteReason">Uninteresting</label></li><li><label><input type="radio" value="13" name="downvoteReason">Misleading</label></li><li><label><input type="radio" value="14" name="downvoteReason">Offensive</label></li><li><label><input type="radio" value="15" name="downvoteReason">Repetitive</label></li><li><label><input type="radio" value="16" name="downvoteReason">Other</label></li></ul><a href="http://codereview.stackexchange.com/questions/71790/design-a-chess-game-using-object-oriented-principles#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img height="0px" width="0px" border="0" style="position:absolute;" src="./java - Design a chess game using object-oriented principles - Code Review Stack Exchange_files/i(2).gif"></div>
+			
+
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/13726?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">3</div></a><a href="http://codereview.stackexchange.com/questions/13726/how-can-i-use-object-oriented-principles-in-the-following-scenario?rq=1" class="question-hyperlink">How can I use object oriented principles in the following scenario?</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/66765?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">4</div></a><a href="http://codereview.stackexchange.com/questions/66765/object-oriented-blackjack-game?rq=1" class="question-hyperlink">Object-oriented Blackjack game</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/84160?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">5</div></a><a href="http://codereview.stackexchange.com/questions/84160/white-elephant-gift-exchange-game-using-object-oriented-design?rq=1" class="question-hyperlink">White Elephant Gift Exchange game using object-oriented design</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/84696?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">13</div></a><a href="http://codereview.stackexchange.com/questions/84696/object-oriented-design-for-wheel-of-fortune?rq=1" class="question-hyperlink">Object-oriented design for Wheel of Fortune</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/104467?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">6</div></a><a href="http://codereview.stackexchange.com/questions/104467/chess-game-in-python-follow-up?rq=1" class="question-hyperlink">Chess game in Python - follow-up</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/105142?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">11</div></a><a href="http://codereview.stackexchange.com/questions/105142/simple-object-oriented-design-of-student-system?rq=1" class="question-hyperlink">Simple object oriented design of student system</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/105748?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">8</div></a><a href="http://codereview.stackexchange.com/questions/105748/knight-moves-in-chess-game?rq=1" class="question-hyperlink">Knight moves in Chess game</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/116994?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">8</div></a><a href="http://codereview.stackexchange.com/questions/116994/object-oriented-chess-game-in-ruby?rq=1" class="question-hyperlink">Object-Oriented Chess Game in Ruby</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/132480?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">3</div></a><a href="http://codereview.stackexchange.com/questions/132480/semi-playable-chess-game-in-ruby?rq=1" class="question-hyperlink">Semi-playable chess game in Ruby</a></div><div class="spacer js-gps-track"><a href="http://codereview.stackexchange.com/q/136789?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">6</div></a><a href="http://codereview.stackexchange.com/questions/136789/beginnings-of-a-chess-game?rq=1" class="question-hyperlink">Beginnings of a Chess game</a></div>
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/41093774/why-is-it-not-a-compiler-error-to-assign-to-the-result-of-a-substr-call" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is it not a compiler error to assign to the result of a substr call?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="http://mathoverflow.net/questions/257031/cohen-real-without-a-minimal-support" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Cohen real without a minimal support
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-drupal" title="Drupal Answers"></div><a href="http://drupal.stackexchange.com/questions/222762/how-to-handle-field-with-multiple-items" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:220 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to handle field with multiple items
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-softwareengineering" title="Software Engineering Stack Exchange"></div><a href="http://softwareengineering.stackexchange.com/questions/337705/what-is-meant-by-the-phrase-software-can-replace-hardware" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is meant by the phrase “Software can replace hardware”?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/112129/the-level-or-levels-of-residual-host-cell-protein-in-all-drug-samples" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The level (or "levels"?) of residual host cell protein in all drug samples
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/2055207/what-is-the-easiest-way-of-solving-this-integral" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the easiest way of solving this integral?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/41100287/randint-doesnt-always-follow-uniform-distribution" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Randint doesn't always follow uniform distribution
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/294195/can-a-pokemon-learn-a-move-that-i-previously-denied" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can a Pokemon learn a move that I previously denied?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/147055/are-starfleet-officers-allowed-to-drink-on-duty" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are Starfleet officers allowed to drink on duty?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="http://dba.stackexchange.com/questions/157863/is-it-safe-to-set-xp-cmdshell-value-1" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it safe to set xp_cmdshell value 1?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-vi" title="Vi and Vim Stack Exchange"></div><a href="http://vi.stackexchange.com/questions/10594/why-this-regex-expression-matching-lines-with-not-n-number-of-comma-doesnt-wo" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:599 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why this regex expression matching lines with (not N) number of comma doesn't work with vim?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/147037/tom-riddle-in-the-tri-wizard-tournament" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Tom Riddle in the Tri-Wizard tournament
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-skeptics" title="Skeptics Stack Exchange"></div><a href="http://skeptics.stackexchange.com/questions/36257/does-wordpress-power-27-of-the-internet" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:212 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does WordPress power 27% of the Internet?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-avp" title="Video Production Stack Exchange"></div><a href="http://video.stackexchange.com/questions/20110/what-are-these-rectangular-patterns-in-the-frame" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:170 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are these rectangular patterns in the frame?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/91632/is-sanctuary-broken-if-i-attack-an-object" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is Sanctuary Broken if I Attack an Object?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/2040811/what-are-some-counter-intuitive-results-in-mathematics-that-involve-only-finite" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are some counter-intuitive results in mathematics that involve only finite objects?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-photo" title="Photography Stack Exchange"></div><a href="http://photo.stackexchange.com/questions/85256/how-can-i-make-these-winter-real-estate-photos-look-like-summer-photos" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:61 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I make these winter real estate photos look like summer photos?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-gis" title="Geographic Information Systems Stack Exchange"></div><a href="http://gis.stackexchange.com/questions/221082/qgis-wkt-well-known-text-lines-and-polygon-files-loaded-ok-but-point-not" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:79 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    QGIS, WKT (Well Known Text) LINES and POLYGON files loaded ok, but POINT not
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/112144/can-you-club-together-with-something-else-than-money" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can you "club together" with something else than money?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/298080/why-do-we-feel-heat-from-infrared-light-but-not-from-shorter-wavelengths" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do we feel heat from infrared light but not from shorter wavelengths?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="http://chemistry.stackexchange.com/questions/64323/oxidation-state-of-hydrogen-in-the-lani5h-intermetallic" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Oxidation state of hydrogen in the LaNi5H intermetallic
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/64131/why-would-a-fire-dragon-still-be-afraid-of-torches" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why would a fire dragon still be afraid of torches?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/73575/why-do-most-banks-in-canada-charge-monthly-fee" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do most banks in Canada charge monthly fee?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/343599/how-do-i-resolve-the-assertion-failed-popups" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do i resolve the assertion failed popups?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://codereview.stackexchange.com/feeds/question/71790" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/71790/ivc/0f38');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/71790/ivc/0f38" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">lang-java</div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://codereview.stackexchange.com/tour">tour</a>
+                    <a href="http://codereview.stackexchange.com/help">help</a>
+                    <a href="http://stackoverflow.blog/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/?tab=site&amp;host=codereview.stackexchange.com">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://codereview.stackexchange.com/contact">contact us</a></b>
+                        <b><a href="http://meta.codereview.stackexchange.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="4">
+                Technology
+            </th>
+            <th colspan="2">
+                Life / Arts
+            </th>
+            <th colspan="2">
+                Culture / Recreation
+            </th>
+            <th colspan="2">
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://softwareengineering.stackexchange.com/" title="professionals, academics, and students working within the systems development life cycle who care about creating, delivering, and maintaining software responsibly">Software Engineering</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                        <li><a href="http://crypto.stackexchange.com/" title="software developers, mathematicians and others interested in cryptography">Cryptography</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://codereview.stackexchange.com/" title="peer programmer code reviews">Code Review</a></li>
+                        <li><a href="http://magento.stackexchange.com/" title="users of the Magento e-Commerce platform">Magento</a></li>
+                        <li><a href="http://dsp.stackexchange.com/" title="practitioners of the art and science of signal, image and video processing">Signal Processing</a></li>
+                        <li><a href="http://raspberrypi.stackexchange.com/" title="users and developers of hardware and software for Raspberry Pi">Raspberry Pi</a></li>
+                        <li><a href="http://codegolf.stackexchange.com/" title="programming puzzle enthusiasts and code golfers">Programming Puzzles &amp; Code Golf</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://music.stackexchange.com/" title="musicians, students, and enthusiasts">Music: Practice &amp; Theory</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (8)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://ell.stackexchange.com/" title="speakers of other languages learning English">English Language Learners</a></li>
+                        <li><a href="http://japanese.stackexchange.com/" title="students, teachers, and linguists wanting to discuss the finer points of the Japanese language">Japanese Language</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                        <li><a href="http://anime.stackexchange.com/" title="anime and manga fans">Anime &amp; Manga</a></li>
+                        <li><a href="http://mechanics.stackexchange.com/" title="mechanics and DIY enthusiast owners of cars, trucks, and motorcycles">Motor Vehicle Maintenance &amp; Repair</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (17)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                        <li><a href="http://cs.stackexchange.com/" title="students, researchers and practitioners of computer science">Computer Science</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://philosophy.stackexchange.com/" title="those interested in the study of the fundamental nature of knowledge, reality, and existence">Philosophy</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (3)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://www.stackoverflowbusiness.com/talent">Stack Overflow Talent</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.12.9.4320
+            </div>
+                </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Code Review Stack Exchange works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    
+    
+        
+        ados.run.push(function () {
+                ados_setKeywords('java,oop,design-patterns,game,chess,x-host-codereview.stackexchange.com');; ados_load();
+        });   
+        
+</script>
+
+    <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function() { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            
+                ga('create', 'UA-5620270-24', {'cookieDomain': 'stackexchange.com'});
+                ga('set', 'dimension2', '|java|oop|design-patterns|game|chess|');             ga('send', 'pageview');
+
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+                qc.async = true;
+                qc.src = (ssl ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js';
+                s.parentNode.insertBefore(qc, s);
+                _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+                            var sc=document.createElement('script');
+                sc.async=true;
+                sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+                s.parentNode.insertBefore(sc, s);
+                _comscore.push({ c1: "2", c2: "17440561" });
+        })();
+
+    </script>
+        
+    
+            <script type="text/javascript">
+                
+                (function(appendChild) {
+                    Node.prototype.appendChild = function() {
+                        var parent = this;
+                        var newNode = arguments[0];
+                        if (parent.nodeName === 'HEAD'
+                            && newNode
+                            && newNode.nodeName === 'SCRIPT'
+                            && newNode.src) {
+                            
+                            window.setTimeout(function() {
+                                var result = newNode.src.match(/^https:\/\/maps\.googleapis\.com\/maps\/api\/place\/js\/(\w+)Service\./i) || [];
+                                var service = result[1];
+                                if (service) {
+                                    if (service === 'Autocompletion') service =  2;
+                                    else if (service === 'Place') service = 1;
+                                    else service = 0;
+                                    StackExchange.using('gps', function() {
+                                        StackExchange.gps.track('google_maps_places_api.call', { service: service });
+                                    });
+                                }
+                            }, 0);
+                        }
+                        return appendChild.apply(this, arguments);
+                    };
+                })(Node.prototype.appendChild);
+            </script>
+    
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Size1, monospace;"></div></div></body></html>

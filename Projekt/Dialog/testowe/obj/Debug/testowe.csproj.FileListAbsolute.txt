@@ -1,0 +1,15 @@
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\testowe.exe.config
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\testowe.exe
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\testowe.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\SharedProject.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\EntityFramework.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\SharedProject.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\EntityFramework.xml
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\obj\Debug\testowe.csprojResolveAssemblyReference.cache
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\obj\Debug\testowe.Form1.resources
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\obj\Debug\testowe.Properties.Resources.resources
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\obj\Debug\testowe.csproj.GenerateResource.Cache
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\obj\Debug\testowe.exe
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\obj\Debug\testowe.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\AutoMapper.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\testowe\bin\Debug\AutoMapper.xml

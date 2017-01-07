@@ -1,0 +1,13 @@
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\SharedProjectTests.dll.config
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\SharedProjectTests.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\SharedProjectTests.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\EntityFramework.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\SharedProject.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\AutoMapper.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\SharedProject.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\EntityFramework.xml
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\bin\Debug\AutoMapper.xml
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\obj\Debug\SharedProjectTests.csprojResolveAssemblyReference.cache
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\obj\Debug\SharedProjectTests.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProjectTests\obj\Debug\SharedProjectTests.pdb

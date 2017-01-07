@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbDialogoweModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Board">
+    <Key>
+      <PropertyRef Name="IDBoard" />
+    </Key>
+    <Property Name="IDBoard" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDGame" Type="Int16" />
+    <NavigationProperty Name="Field" Relationship="Self.FK_Relationship_3" FromRole="Board" ToRole="Field" />
+    <NavigationProperty Name="Game" Relationship="Self.FK_Relationship_8" FromRole="Board" ToRole="Game" />
+  </EntityType>
+  <EntityType Name="Field">
+    <Key>
+      <PropertyRef Name="IDField" />
+    </Key>
+    <Property Name="IDField" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDBoard" Type="Int16" />
+    <Property Name="IDFieldType" Type="Int16" Nullable="false" />
+    <Property Name="IDUnit" Type="Int16" />
+    <Property Name="X" Type="SByte" Nullable="false" />
+    <Property Name="Y" Type="SByte" Nullable="false" />
+    <NavigationProperty Name="Board" Relationship="Self.FK_Relationship_3" FromRole="Field" ToRole="Board" />
+    <NavigationProperty Name="FieldType" Relationship="Self.FK_Relationship_5" FromRole="Field" ToRole="FieldType" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_Relationship_9" FromRole="Field" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="FieldType">
+    <Key>
+      <PropertyRef Name="IDFieldType" />
+    </Key>
+    <Property Name="IDFieldType" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Field" Relationship="Self.FK_Relationship_5" FromRole="FieldType" ToRole="Field" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="IDGame" />
+    </Key>
+    <Property Name="IDGame" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Board" Relationship="Self.FK_Relationship_8" FromRole="Game" ToRole="Board" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Relationship_10" FromRole="Game" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="IDUnit" />
+    </Key>
+    <Property Name="IDUnit" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDUnitType" Type="Int16" Nullable="false" />
+    <Property Name="IDUser" Type="Int16" />
+    <NavigationProperty Name="Field" Relationship="Self.FK_Relationship_9" FromRole="Unit" ToRole="Field" />
+    <NavigationProperty Name="UnitType" Relationship="Self.FK_Relationship_6" FromRole="Unit" ToRole="UnitType" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Relationship_7" FromRole="Unit" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UnitType">
+    <Key>
+      <PropertyRef Name="IDUnitType" />
+    </Key>
+    <Property Name="IDUnitType" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Stamina" Type="Int16" Nullable="false" />
+    <Property Name="Damage" Type="Int16" Nullable="false" />
+    <Property Name="Move" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_Relationship_6" FromRole="UnitType" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IDUser" />
+    </Key>
+    <Property Name="IDUser" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDGame" Type="Int16" />
+    <Property Name="Login" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Hash" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Game" Relationship="Self.FK_Relationship_10" FromRole="User" ToRole="Game" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_Relationship_7" FromRole="User" ToRole="Unit" />
+  </EntityType>
+  <Association Name="FK_Relationship_3">
+    <End Role="Board" Type="Self.Board" Multiplicity="0..1" />
+    <End Role="Field" Type="Self.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Board">
+        <PropertyRef Name="IDBoard" />
+      </Principal>
+      <Dependent Role="Field">
+        <PropertyRef Name="IDBoard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_8">
+    <End Role="Game" Type="Self.Game" Multiplicity="0..1" />
+    <End Role="Board" Type="Self.Board" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="IDGame" />
+      </Principal>
+      <Dependent Role="Board">
+        <PropertyRef Name="IDGame" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_5">
+    <End Role="FieldType" Type="Self.FieldType" Multiplicity="1" />
+    <End Role="Field" Type="Self.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldType">
+        <PropertyRef Name="IDFieldType" />
+      </Principal>
+      <Dependent Role="Field">
+        <PropertyRef Name="IDFieldType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_9">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Field" Type="Self.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="IDUnit" />
+      </Principal>
+      <Dependent Role="Field">
+        <PropertyRef Name="IDUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_10">
+    <End Role="Game" Type="Self.Game" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="IDGame" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IDGame" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_6">
+    <End Role="UnitType" Type="Self.UnitType" Multiplicity="1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitType">
+        <PropertyRef Name="IDUnitType" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="IDUnitType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_7">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="IDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbDialogoweEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Board" EntityType="Self.Board" />
+    <EntitySet Name="Field" EntityType="Self.Field" />
+    <EntitySet Name="FieldType" EntityType="Self.FieldType" />
+    <EntitySet Name="Game" EntityType="Self.Game" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" />
+    <EntitySet Name="UnitType" EntityType="Self.UnitType" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_Relationship_3" Association="Self.FK_Relationship_3">
+      <End Role="Board" EntitySet="Board" />
+      <End Role="Field" EntitySet="Field" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_8" Association="Self.FK_Relationship_8">
+      <End Role="Game" EntitySet="Game" />
+      <End Role="Board" EntitySet="Board" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_5" Association="Self.FK_Relationship_5">
+      <End Role="FieldType" EntitySet="FieldType" />
+      <End Role="Field" EntitySet="Field" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_9" Association="Self.FK_Relationship_9">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Field" EntitySet="Field" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_10" Association="Self.FK_Relationship_10">
+      <End Role="Game" EntitySet="Game" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_6" Association="Self.FK_Relationship_6">
+      <End Role="UnitType" EntitySet="UnitType" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_7" Association="Self.FK_Relationship_7">
+      <End Role="User" EntitySet="User" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

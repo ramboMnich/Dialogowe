@@ -1,0 +1,10 @@
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\SharedProject.dll.config
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\SharedProject.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\SharedProject.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\EntityFramework.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\EntityFramework.xml
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\obj\Debug\SharedProject.csprojResolveAssemblyReference.cache
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\obj\Debug\SharedProject.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\obj\Debug\SharedProject.pdb
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\AutoMapper.dll
+c:\users\xxx\documents\visual studio 2015\Projects\Dialog\SharedProject\bin\Debug\AutoMapper.xml

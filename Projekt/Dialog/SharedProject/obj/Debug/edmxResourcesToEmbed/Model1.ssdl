@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbDialogoweModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Board">
+    <Key>
+      <PropertyRef Name="IDBoard" />
+    </Key>
+    <Property Name="IDBoard" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDGame" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Field">
+    <Key>
+      <PropertyRef Name="IDField" />
+    </Key>
+    <Property Name="IDField" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDBoard" Type="smallint" />
+    <Property Name="IDFieldType" Type="smallint" Nullable="false" />
+    <Property Name="IDUnit" Type="smallint" />
+    <Property Name="X" Type="tinyint" Nullable="false" />
+    <Property Name="Y" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FieldType">
+    <Key>
+      <PropertyRef Name="IDFieldType" />
+    </Key>
+    <Property Name="IDFieldType" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="IDGame" />
+    </Key>
+    <Property Name="IDGame" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="IDUnit" />
+    </Key>
+    <Property Name="IDUnit" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDUnitType" Type="smallint" Nullable="false" />
+    <Property Name="IDUser" Type="smallint" />
+  </EntityType>
+  <EntityType Name="UnitType">
+    <Key>
+      <PropertyRef Name="IDUnitType" />
+    </Key>
+    <Property Name="IDUnitType" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Stamina" Type="smallint" Nullable="false" />
+    <Property Name="Damage" Type="smallint" Nullable="false" />
+    <Property Name="Move" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IDUser" />
+    </Key>
+    <Property Name="IDUser" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDGame" Type="smallint" />
+    <Property Name="Login" Type="text" Nullable="false" />
+    <Property Name="Hash" Type="text" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Relationship_10">
+    <End Role="Game" Type="Self.Game" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="IDGame" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IDGame" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_3">
+    <End Role="Board" Type="Self.Board" Multiplicity="0..1" />
+    <End Role="Field" Type="Self.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Board">
+        <PropertyRef Name="IDBoard" />
+      </Principal>
+      <Dependent Role="Field">
+        <PropertyRef Name="IDBoard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_5">
+    <End Role="FieldType" Type="Self.FieldType" Multiplicity="1" />
+    <End Role="Field" Type="Self.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldType">
+        <PropertyRef Name="IDFieldType" />
+      </Principal>
+      <Dependent Role="Field">
+        <PropertyRef Name="IDFieldType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_6">
+    <End Role="UnitType" Type="Self.UnitType" Multiplicity="1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitType">
+        <PropertyRef Name="IDUnitType" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="IDUnitType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_7">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="IDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_8">
+    <End Role="Game" Type="Self.Game" Multiplicity="0..1" />
+    <End Role="Board" Type="Self.Board" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="IDGame" />
+      </Principal>
+      <Dependent Role="Board">
+        <PropertyRef Name="IDGame" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relationship_9">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Field" Type="Self.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="IDUnit" />
+      </Principal>
+      <Dependent Role="Field">
+        <PropertyRef Name="IDUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbDialogoweModelStoreContainer">
+    <EntitySet Name="Board" EntityType="Self.Board" Schema="dbdialogowe" store:Type="Tables" />
+    <EntitySet Name="Field" EntityType="Self.Field" Schema="dbdialogowe" store:Type="Tables" />
+    <EntitySet Name="FieldType" EntityType="Self.FieldType" Schema="dbdialogowe" store:Type="Tables" />
+    <EntitySet Name="Game" EntityType="Self.Game" Schema="dbdialogowe" store:Type="Tables" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbdialogowe" store:Type="Tables" />
+    <EntitySet Name="UnitType" EntityType="Self.UnitType" Schema="dbdialogowe" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbdialogowe" store:Type="Tables" />
+    <AssociationSet Name="FK_Relationship_10" Association="Self.FK_Relationship_10">
+      <End Role="Game" EntitySet="Game" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_3" Association="Self.FK_Relationship_3">
+      <End Role="Board" EntitySet="Board" />
+      <End Role="Field" EntitySet="Field" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_5" Association="Self.FK_Relationship_5">
+      <End Role="FieldType" EntitySet="FieldType" />
+      <End Role="Field" EntitySet="Field" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_6" Association="Self.FK_Relationship_6">
+      <End Role="UnitType" EntitySet="UnitType" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_7" Association="Self.FK_Relationship_7">
+      <End Role="User" EntitySet="User" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_8" Association="Self.FK_Relationship_8">
+      <End Role="Game" EntitySet="Game" />
+      <End Role="Board" EntitySet="Board" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relationship_9" Association="Self.FK_Relationship_9">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Field" EntitySet="Field" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

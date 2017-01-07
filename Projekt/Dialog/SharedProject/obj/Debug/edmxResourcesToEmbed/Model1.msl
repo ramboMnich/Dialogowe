@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbDialogoweModelStoreContainer" CdmEntityContainer="dbDialogoweEntities">
+    <EntitySetMapping Name="Board">
+      <EntityTypeMapping TypeName="dbDialogoweModel.Board">
+        <MappingFragment StoreEntitySet="Board">
+          <ScalarProperty Name="IDBoard" ColumnName="IDBoard" />
+          <ScalarProperty Name="IDGame" ColumnName="IDGame" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Field">
+      <EntityTypeMapping TypeName="dbDialogoweModel.Field">
+        <MappingFragment StoreEntitySet="Field">
+          <ScalarProperty Name="IDField" ColumnName="IDField" />
+          <ScalarProperty Name="IDBoard" ColumnName="IDBoard" />
+          <ScalarProperty Name="IDFieldType" ColumnName="IDFieldType" />
+          <ScalarProperty Name="IDUnit" ColumnName="IDUnit" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FieldType">
+      <EntityTypeMapping TypeName="dbDialogoweModel.FieldType">
+        <MappingFragment StoreEntitySet="FieldType">
+          <ScalarProperty Name="IDFieldType" ColumnName="IDFieldType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Game">
+      <EntityTypeMapping TypeName="dbDialogoweModel.Game">
+        <MappingFragment StoreEntitySet="Game">
+          <ScalarProperty Name="IDGame" ColumnName="IDGame" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Unit">
+      <EntityTypeMapping TypeName="dbDialogoweModel.Unit">
+        <MappingFragment StoreEntitySet="Unit">
+          <ScalarProperty Name="IDUnit" ColumnName="IDUnit" />
+          <ScalarProperty Name="IDUnitType" ColumnName="IDUnitType" />
+          <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitType">
+      <EntityTypeMapping TypeName="dbDialogoweModel.UnitType">
+        <MappingFragment StoreEntitySet="UnitType">
+          <ScalarProperty Name="IDUnitType" ColumnName="IDUnitType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Stamina" ColumnName="Stamina" />
+          <ScalarProperty Name="Damage" ColumnName="Damage" />
+          <ScalarProperty Name="Move" ColumnName="Move" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="dbDialogoweModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+          <ScalarProperty Name="IDGame" ColumnName="IDGame" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Hash" ColumnName="Hash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
